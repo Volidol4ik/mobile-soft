@@ -1,0 +1,5 @@
+$id = $mysqli->real_escape_string($_GET['id']);  
+
+$number = "SELECT * FROM `fishing` WHERE `id` = '$id'"; 
+
+ 
