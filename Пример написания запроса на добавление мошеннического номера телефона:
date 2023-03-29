@@ -1,0 +1,1 @@
+INSERT INTO fishing (number, status) VALUES("89001234545", "1"); 
