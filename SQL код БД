@@ -1,0 +1,13 @@
+CREATE DATABASE test; 
+
+CREATE TABLE fishing ( 
+
+    id INT NOT NULL AUTO_INCREMENT, 
+
+    number VARCHAR(11), 
+
+    status BOOLEAN, 
+
+    PRIMARY KEY(id) 
+
+); 
