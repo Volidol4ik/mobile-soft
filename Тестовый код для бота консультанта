@@ -1,0 +1,81 @@
+import telebot
+from telebot import types
+import time
+otv=[5]
+token="6298138503:AAEDc370s_5tvbuIFmCzf963PwgGDli9si0"
+bot = telebot.TeleBot(token)
+@bot.message_handler(commands=["start"])
+def start(message, res=False):
+    bot.send_message(message.chat.id, "Здравствуйте, здесь вы получите консультацию квалифицированых специалистов и сможете решить свои проблемы ! ")
+    time.sleep(1)
+    start_keyboard(message)
+def start_keyboard(message):
+    mark = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn1 = types.KeyboardButton("Телефонное мошенничество")
+    btn2 = types.KeyboardButton("СМС мошенничество")
+    btn3 = types.KeyboardButton("Мошенничество на сайте")
+    btn4 = types.KeyboardButton("Другое")
+    mark.add(btn1, btn2, btn3, btn4)
+    bot.send_message(message.chat.id, text="Вот с чем я могу Вам помочь", reply_markup=mark)
+    bot.register_next_step_handler(message, otvet)
+def yes_no(message):
+    mark = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn1 = types.KeyboardButton("Да")
+    btn2 = types.KeyboardButton("Нет")
+    mark.add(btn1, btn2)
+    bot.send_message(message.chat.id, text='Могу ли я ещё с чем-нибудь помочь?' ,reply_markup=mark )
+    bot.register_next_step_handler(message, otvet1)
+def otvet1(message):
+    if (message.text == "Да"):
+        types.ReplyKeyboardRemove()
+        start_keyboard(message)
+    elif (message.text == "Нет"):
+        time.sleep(1)
+        bot.send_message(message.chat.id, text='Если понадобится помощь, я всегда жду здесь')
+        types.ReplyKeyboardRemove()
+        bot.register_next_step_handler(message, start)
+    else:
+        time.sleep(1)
+        bot.send_message(message.chat.id, text='Пожалуйста, ответьте "Да" или "Нет"')
+def otvet(message):
+    if(message.text == "Телефонное мошенничество"):
+        time.sleep(1)
+        bot.send_message(message.chat.id, text="Телефонные мошенничества с применением звонков, Фишинг — один из методов мошенничества с использованием социальной инженерии, который заключается в том, что злоумышленники, используя телефонную коммуникацию и играя определённую роль (сотрудника банка, покупателя и т. д.), под разными предлогами выманивают у держателя платёжной карты конфиденциальную информацию или стимулируют к совершению определённых действий со своим карточным счётом. ", reply_markup=types.ReplyKeyboardRemove())
+        time.sleep(5)
+        bot.send_message(message.chat.id, text='В нашем приложении во вкладке "Телефонное мошенничество" вы можете отправить жалобу на номер телефона и он будет перенаправлен модератору.')
+        time.sleep(2)
+        bot.send_message(message.chat.id, text='Для решения вашей проблемы перенаправляю на специалиста: 8(900)-000-00-00')
+        time.sleep(2)
+        yes_no(message)
+    elif(message.text == "СМС мошенничество"):
+        time.sleep(1)
+        bot.send_message(message.chat.id, text="СМС-мошенничество - сбор злоумышленниками информации и убеждение клиента под различными предлогами осуществить финансовые операции в пользу третьих лиц посредством рассылки Смс-сообщений от лица кредитной организации. ", reply_markup=types.ReplyKeyboardRemove())
+        time.sleep(5)
+        bot.send_message(message.chat.id, text='В нашем приложении во вкладке "Защита от фишинга" вы сможете узнать о способах защиты от различных видов мошенничества, включая смс-мошенничества.')
+        time.sleep(2)
+        bot.send_message(message.chat.id, text='Для решения вашей проблемы перенаправляю на специалиста: 8(900)-000-00-00')
+        time.sleep(2)
+        yes_no(message)
+    elif(message.text == "Мошенничество на сайте"):
+        time.sleep(1)
+        bot.send_message(message.chat.id, text='В интернете можно столкнуться с мошенниками, цель которых — обманным путем получить от вас деньги или завладеть личными данными. Узнав ваши фамилию, имя, отчество, номер телефона, пароли от учетных записей, паспортные данные, реквизиты банковских карт и другие сведения, преступники могут использовать их для доступа к переписке, для рассылки сообщений от вашего имени и для кражи денег.  ', reply_markup=types.ReplyKeyboardRemove())
+        time.sleep(5)
+        bot.send_message(message.chat.id, text='В нашем приложении во вкладке "Проверка сайтов" вы можете проверить сайт на наличие дефейса и обезопасить себе от нежелательных интернет-страниц. ')
+        time.sleep(2)
+        bot.send_message(message.chat.id, text='Для решения вашей проблемы перенаправляю на специалиста: 8(900)-000-00-00')
+        time.sleep(2)
+        yes_no(message)
+    elif(message.text == "Другое"):
+        time.sleep(1)
+        bot.send_message(message.chat.id, text='В нашем приложении во вкладке "Чат" вы сможете получить советы и поддержку от людей, которые уже сталкивались с проблемами в сфере мошенничества, а так же получить актуальную информацию именно о вашей проблеме. ', reply_markup=types.ReplyKeyboardRemove())
+        time.sleep(5)
+        bot.send_message(message.chat.id, text='Для решения вашей проблемы перенаправляю на специалиста: 8(900)-000-00-00')
+        time.sleep(2)
+        yes_no(message)
+    else:
+        bot.send_message(message.chat.id, "Извините, я Вас не понимаю")
+        time.sleep(1)
+        bot.send_message(message.chat.id, "Пожалуйста, выберете что либо из списка")
+        time.sleep(1)
+        start_keyboard(message)
+bot.polling()
